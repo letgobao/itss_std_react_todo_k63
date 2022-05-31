@@ -26,18 +26,23 @@ function Todo() {
     { key: getKey(), text: '明日の準備をする', done: false },
     /* テストコード 終了 */
   ]);
+  const setItems = (key, done) => {
+    const newitems = [...items]
+    for(let item of newitems){
+      if(item.key === key)
+        item.done = done
+    }
+    putItems(newitems)
+  }
 
   return (
     <div className="panel">
       <div className="panel-heading">
         ITSS ToDoアプリ
       </div>
-      {items.map(item => (
-        <label className="panel-block">
-            <input type="checkbox" />
-            {item.text}
-        </label>
-      ))}
+      {items.map(item => 
+        <TodoItem key={item.key} item={item} change = {setItems}/>
+      )}
       <div className="panel-block">
         {items.length} items
       </div>
