@@ -10,7 +10,7 @@ function TodoItem({item,change}) {
   }
   return (
     <label className="panel-block" >
-      <input type="checkbox" onChange={e=>changeStatus(e)}/>
+      <input type="checkbox" defaultChecked={item.done} onChange={e=>changeStatus(e)}/>
             <span style={{color:item.done?'#888888':'#000000'}}>{item.text}</span>
     </label>
   );

@@ -26,7 +26,8 @@ function Todo() {
     { key: getKey(), text: '明日の準備をする', done: false },
     /* テストコード 終了 */
   ]);
-  const [tab,setTab] = React.useState([true, false, false]);
+  //
+  const [list,setList] = React.useState([...items])
   const setItems = (key, done) => {
     const newitems = [...items]
     for(let item of newitems){
@@ -39,24 +40,26 @@ function Todo() {
     const newitems = [...items,item]
     putItems(newitems)
   }
+  const showTab = (position) => {
+    if(position === 1)
+      setList(items)
+    if(position === 2)
+      setList(items.filter(item => item.done == true))
+    if(position === 3)
+      setList(items.filter(item => item.done == false))
+  }
   return (
     <div className="panel">
       <div className="panel-heading">
         ITSS ToDoアプリ
       </div>
       <Input addTodo={pushItem}></Input>
-      <div className="tabs is-centered">
-        <ul>
-          <li className={tab[0] ? "is-active" : ""} onClick={setTab([true,false,false])}><a>すべて</a></li>
-          <li className={tab[1] ? "is-active" : ""} onClick={setTab([false,true,false])}><a>未完了</a></li>
-          <li className={tab[2] ? "is-active" : ""} onClick={setTab([false,false,true])}><a>完了済み</a></li>
-        </ul>
-      </div>
-      {items.map(item => 
+      <Filter func={showTab}/>
+      {list.map(item => 
         <TodoItem key={item.key} item={item} change = {setItems}/>
       )}
       <div className="panel-block">
-        {items.length} items
+        {list.length} items
       </div>
     </div>
   );
