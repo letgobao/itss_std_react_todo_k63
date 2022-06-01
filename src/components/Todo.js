@@ -40,6 +40,10 @@ function Todo() {
     const newitems = [...items,item]
     putItems(newitems)
   }
+  const removeItem = (item)=> {
+    const newitems =items.splice(items.indexOf(item),1)
+    putItems(newitems)
+  }
   const showTab = (position) => {
     if(position === 1)
       setList(items)
@@ -56,7 +60,7 @@ function Todo() {
       <Input addTodo={pushItem}></Input>
       <Filter func={showTab}/>
       {list.map(item => 
-        <TodoItem key={item.key} item={item} change = {setItems}/>
+        <TodoItem key={item.key} item={item} change = {setItems} remove={removeItem}/>
       )}
       <div className="panel-block">
         {list.length} items
